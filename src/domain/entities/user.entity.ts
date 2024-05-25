@@ -8,6 +8,6 @@ export class User {
         public code: string,
         public password: string,
         public callAssistance: string,
-        public userType: string,  
+        public userType: string,
     ) {}
 }
