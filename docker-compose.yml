@@ -3,8 +3,18 @@ version: '3.8'
 services:
   mydb:
     image: mysql
+    env_file: ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=swissify
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
     ports:
-      - 3307:3306
+      - $MYSQL_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+  
+  app:
+    build: .
+    depends_on:
+      - mydb
+    links:
+      - mydb
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT

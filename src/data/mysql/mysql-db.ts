@@ -10,7 +10,7 @@ interface Options {
 export class MySqlDataBase {
   static async connect(options: Options) {
     try {
-      const { host, user, password, port } = options
+      const { host = 'mydb', user, password, port } = options
       const pool = createPool({
         host,
         user,
