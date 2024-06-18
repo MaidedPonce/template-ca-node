@@ -4,13 +4,19 @@ import {
   RegisterUserDto,
   User,
 } from '../../domain'
+import { Usermapper } from '../mappers/user.mapper'
 
 export class AuthDataSourceImpl implements AuthDataSource {
   async register(registerUserDto: RegisterUserDto): Promise<User> {
     const { name, email, password } = registerUserDto
 
     try {
-      return new User('', '', '', '', '', '', '', '', '')
+      const user = await UserModel.create({
+        name,
+        email,
+        password,
+      })
+      return Usermapper.userEntityFromObject(user)
     } catch (error) {
       if (error instanceof CustomError) {
         throw error

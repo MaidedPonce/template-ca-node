@@ -17,6 +17,8 @@
     "express": "^4.19.2",
     "mysql2": "^3.9.9",
     "rimraf": "^5.0.7",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
