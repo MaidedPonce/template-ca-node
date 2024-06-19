@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize'
 
 const sequelize = new Sequelize('sqlite::memory:')
-const User = sequelize.define('User', {
+export const UserModel = sequelize.define('User', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV1,
@@ -14,5 +14,10 @@ const User = sequelize.define('User', {
   code: DataTypes.STRING,
   password: DataTypes.STRING,
   callAssistance: DataTypes.STRING,
-  userType: DataTypes.STRING,
+  userType: DataTypes.ENUM('Enterprising', 'Distribuitor', 'Assistant'),
+})
+
+// Sincronizar los modelos con la base de datos
+sequelize.sync({ force: true }).then(() => {
+  console.log('Base de datos sincronizada')
 })

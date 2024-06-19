@@ -1,4 +1,5 @@
-import { createPool } from 'mysql2/promise'
+import { Sequelize } from 'sequelize'
+import { CustomError } from '../../domain'
 
 interface Options {
   host: string
@@ -12,14 +13,25 @@ export class MySqlDataBase {
   static async connect(options: Options) {
     try {
       const { host = 'mydb', user, password, port, database } = options
-      const pool = createPool({
+      console.log(options)
+      const sequelize = new Sequelize(database, user, password, {
         host,
-        user,
-        password,
         port,
-        database,
+        dialect: 'mysql',
+        logging: console.log,
       })
-      pool.on('connection', () => console.log('DB CONNECTED'))
+
+      try {
+        await sequelize.authenticate().then(() => {
+          console.log('Sequelize connection established successfully.')
+        })
+      } catch (error) {
+        throw CustomError.unauthorized(
+          `Unable to connect to the database: ${error}`
+        )
+      }
+
+      return sequelize
     } catch (error) {}
   }
 }

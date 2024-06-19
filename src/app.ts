@@ -14,5 +14,6 @@ async function main() {
     port: envs.MYSQL_LOCAL_PORT,
     database: envs.MYSQL_DATABASE,
   })
+
   new Server({ port: envs.NODE_DOCKER_PORT, routes: AppRoutes.routes }).start()
 }

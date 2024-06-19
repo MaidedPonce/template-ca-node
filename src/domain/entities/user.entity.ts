@@ -1,3 +1,9 @@
+export enum Role {
+  Enterprising = 'Enterprising',
+  Distribuitor = 'Distribuitor',
+  Assitant = 'Assitant',
+}
+
 export class User {
   constructor(
     public id: string,
@@ -8,6 +14,6 @@ export class User {
     public code: string,
     public password: string,
     public callAssistance: string,
-    public userType: string
+    public userType: Role
   ) {}
 }

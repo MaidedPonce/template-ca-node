@@ -1,3 +1,4 @@
+import { UserModel } from '../../data/mysql'
 import {
   AuthDataSource,
   CustomError,
@@ -8,13 +9,30 @@ import { Usermapper } from '../mappers/user.mapper'
 
 export class AuthDataSourceImpl implements AuthDataSource {
   async register(registerUserDto: RegisterUserDto): Promise<User> {
-    const { name, email, password } = registerUserDto
+    const {
+      name,
+      email,
+      password,
+      lastname,
+      phone,
+      code,
+      callAssistance,
+      userType,
+    } = registerUserDto
 
     try {
+      const exists = await UserModel.findOne({ where: { email } })
+      if (exists) throw CustomError.badRequest('User already exists')
+
       const user = await UserModel.create({
         name,
         email,
         password,
+        lastname,
+        phone,
+        code,
+        callAssistance,
+        userType,
       })
       return Usermapper.userEntityFromObject(user)
     } catch (error) {
