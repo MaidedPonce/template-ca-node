@@ -1,5 +1,5 @@
 export * from './dtos/auth/register-user.dto'
-export * from './entities/user.entity'
+export * from './entities/user/user.entity'
 export * from './errors/custom.error'
 export * from './datasources/auth.data.source'
 export * from './repositories/auth.repository'
