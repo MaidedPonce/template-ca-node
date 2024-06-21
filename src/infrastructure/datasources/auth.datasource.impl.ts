@@ -21,10 +21,12 @@ export class AuthDataSourceImpl implements AuthDataSource {
     } = registerUserDto
 
     try {
-      const exists = await UserModel.findOne({ where: { email } })
+      const exists = await new UserModel()
+        .getModel()
+        .findOne({ where: { email } })
       if (exists) throw CustomError.badRequest('User already exists')
 
-      const user = await UserModel.create({
+      const user = await new UserModel().getModel().create({
         name,
         email,
         password,

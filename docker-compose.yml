@@ -16,6 +16,7 @@ services:
     build: .
     depends_on:
       - mydb
+    command: bash -c 'while !</dev/tcp/mydb/3306; do sleep 1; done; npm start'
     links:
       - mydb
     ports:

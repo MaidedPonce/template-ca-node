@@ -11,7 +11,7 @@ async function main() {
     host: envs.MYSQL_HOST,
     user: envs.MYSQL_USER,
     password: envs.MYSQL_ROOT_PASSWORD,
-    port: envs.MYSQL_LOCAL_PORT,
+    port: envs.MYSQLDB_DOCKER_PORT,
     database: envs.MYSQL_DATABASE,
   })
 
