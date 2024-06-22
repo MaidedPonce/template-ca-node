@@ -1,11 +1,11 @@
 import { DataTypes, Model, ModelCtor } from 'sequelize'
 
 export class UserModel {
-  public model!: ModelCtor<Model<any, any>>
+  public static model: ModelCtor<Model<any, any>>
 
   constructor() {}
 
-  initialize(sequelize: any) {
+  static initialize(sequelize: any) {
     this.model = sequelize.define('User', {
       id: {
         type: DataTypes.UUID,
@@ -23,7 +23,7 @@ export class UserModel {
     })
     return this.model
   }
-  getModel() {
+  static getModel() {
     return this.model
   }
 }

@@ -1,3 +1,4 @@
+import { BcryptAdapter } from '../../config'
 import { UserModel } from '../../data/mysql'
 import {
   AuthDataSource,
@@ -7,7 +8,14 @@ import {
 } from '../../domain'
 import { Usermapper } from '../mappers/user.mapper'
 
+type HashFunction = (password: string) => string
+type CompareFunction = (password: string, hashedPassword: string) => boolean
+
 export class AuthDataSourceImpl implements AuthDataSource {
+  constructor(
+    private readonly hasPassword: HashFunction = BcryptAdapter.hash,
+    private readonly comparePassword: CompareFunction = BcryptAdapter.compare
+  ) {}
   async register(registerUserDto: RegisterUserDto): Promise<User> {
     const {
       name,
@@ -21,15 +29,14 @@ export class AuthDataSourceImpl implements AuthDataSource {
     } = registerUserDto
 
     try {
-      const exists = await new UserModel()
-        .getModel()
-        .findOne({ where: { email } })
+      // console.log(new UserModel().getModel())
+      const exists = await UserModel.getModel().findOne({ where: { email } })
       if (exists) throw CustomError.badRequest('User already exists')
 
-      const user = await new UserModel().getModel().create({
+      const user = await UserModel.getModel().create({
         name,
         email,
-        password,
+        password: this.hasPassword(password),
         lastname,
         phone,
         code,

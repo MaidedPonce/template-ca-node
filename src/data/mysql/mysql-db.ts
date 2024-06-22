@@ -27,7 +27,7 @@ export class MySqlDataBase {
           .authenticate()
           .then(() => {
             this.sequelizeInstance = sequelize
-            new UserModel().initialize(sequelize)
+            UserModel.initialize(sequelize)
           })
           .then(() => {
             sequelize.sync({ force: true }).then(() => {
