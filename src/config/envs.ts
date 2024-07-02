@@ -10,4 +10,5 @@ export const envs = {
   MYSQL_HOST: get('MYSQL_HOST').required().asString(),
   MYSQLDB_DOCKER_PORT: get('MYSQLDB_DOCKER_PORT').required().asPortNumber(),
   MYSQL_LOCAL_PORT: get('MYSQL_LOCAL_PORT').required().asPortNumber(),
+  JWT_SEED: get('JWT_SEED').required().asString(),
 }

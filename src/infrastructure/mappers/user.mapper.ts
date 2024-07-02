@@ -40,4 +40,32 @@ export class Usermapper {
       userType
     )
   }
+  static userEntityLogin(obj: { [key: string]: any }): User {
+    const {
+      email,
+      password,
+      id,
+      name,
+      lastname,
+      phone,
+      code,
+      callAssistance,
+      userType,
+    } = obj
+
+    if (!email) throw CustomError.badRequest('email name is required')
+    if (!password) throw CustomError.badRequest('phone name is required')
+
+    return new User(
+      email,
+      password,
+      id,
+      name,
+      lastname,
+      phone,
+      code,
+      callAssistance,
+      userType
+    )
+  }
 }
