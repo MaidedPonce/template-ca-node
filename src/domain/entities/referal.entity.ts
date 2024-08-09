@@ -7,6 +7,7 @@ export class Referral {
       public name: string,
       public phone: string,
       public comments?: string,
+      
     ) {}
   }
   
